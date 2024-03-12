@@ -1,10 +1,9 @@
-import { createLazyFileRoute } from "@tanstack/react-router";
-import { RoutesMapPage } from "../modules/routes_map/RoutesMapPage";
+import { Navigate, createLazyFileRoute } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/")({
   component: Index,
 });
 
 function Index() {
-  return <RoutesMapPage />;
+  return <Navigate to="/map" />;
 }

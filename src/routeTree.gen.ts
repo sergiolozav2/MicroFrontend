@@ -16,12 +16,19 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
+const PublicLazyImport = createFileRoute('/_public')()
 const AuthLazyImport = createFileRoute('/_auth')()
 const IndexLazyImport = createFileRoute('/')()
+const PublicMapLazyImport = createFileRoute('/_public/map')()
 const AuthRegisterLazyImport = createFileRoute('/_auth/register')()
 const AuthLoginLazyImport = createFileRoute('/_auth/login')()
 
 // Create/Update Routes
+
+const PublicLazyRoute = PublicLazyImport.update({
+  id: '/_public',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/_public.lazy').then((d) => d.Route))
 
 const AuthLazyRoute = AuthLazyImport.update({
   id: '/_auth',
@@ -32,6 +39,11 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const PublicMapLazyRoute = PublicMapLazyImport.update({
+  path: '/map',
+  getParentRoute: () => PublicLazyRoute,
+} as any).lazy(() => import('./routes/_public.map.lazy').then((d) => d.Route))
 
 const AuthRegisterLazyRoute = AuthRegisterLazyImport.update({
   path: '/register',
@@ -57,6 +69,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLazyImport
       parentRoute: typeof rootRoute
     }
+    '/_public': {
+      preLoaderRoute: typeof PublicLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/_auth/login': {
       preLoaderRoute: typeof AuthLoginLazyImport
       parentRoute: typeof AuthLazyImport
@@ -64,6 +80,10 @@ declare module '@tanstack/react-router' {
     '/_auth/register': {
       preLoaderRoute: typeof AuthRegisterLazyImport
       parentRoute: typeof AuthLazyImport
+    }
+    '/_public/map': {
+      preLoaderRoute: typeof PublicMapLazyImport
+      parentRoute: typeof PublicLazyImport
     }
   }
 }
@@ -73,6 +93,7 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
   AuthLazyRoute.addChildren([AuthLoginLazyRoute, AuthRegisterLazyRoute]),
+  PublicLazyRoute.addChildren([PublicMapLazyRoute]),
 ])
 
 /* prettier-ignore-end */
