@@ -13,13 +13,13 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as PublicMapImport } from './routes/_public.map'
 
 // Create Virtual Routes
 
 const PublicLazyImport = createFileRoute('/_public')()
 const AuthLazyImport = createFileRoute('/_auth')()
 const IndexLazyImport = createFileRoute('/')()
-const PublicMapLazyImport = createFileRoute('/_public/map')()
 const AuthRegisterLazyImport = createFileRoute('/_auth/register')()
 const AuthLoginLazyImport = createFileRoute('/_auth/login')()
 
@@ -40,11 +40,6 @@ const IndexLazyRoute = IndexLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 
-const PublicMapLazyRoute = PublicMapLazyImport.update({
-  path: '/map',
-  getParentRoute: () => PublicLazyRoute,
-} as any).lazy(() => import('./routes/_public.map.lazy').then((d) => d.Route))
-
 const AuthRegisterLazyRoute = AuthRegisterLazyImport.update({
   path: '/register',
   getParentRoute: () => AuthLazyRoute,
@@ -56,6 +51,11 @@ const AuthLoginLazyRoute = AuthLoginLazyImport.update({
   path: '/login',
   getParentRoute: () => AuthLazyRoute,
 } as any).lazy(() => import('./routes/_auth.login.lazy').then((d) => d.Route))
+
+const PublicMapRoute = PublicMapImport.update({
+  path: '/map',
+  getParentRoute: () => PublicLazyRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -73,6 +73,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicLazyImport
       parentRoute: typeof rootRoute
     }
+    '/_public/map': {
+      preLoaderRoute: typeof PublicMapImport
+      parentRoute: typeof PublicLazyImport
+    }
     '/_auth/login': {
       preLoaderRoute: typeof AuthLoginLazyImport
       parentRoute: typeof AuthLazyImport
@@ -80,10 +84,6 @@ declare module '@tanstack/react-router' {
     '/_auth/register': {
       preLoaderRoute: typeof AuthRegisterLazyImport
       parentRoute: typeof AuthLazyImport
-    }
-    '/_public/map': {
-      preLoaderRoute: typeof PublicMapLazyImport
-      parentRoute: typeof PublicLazyImport
     }
   }
 }
@@ -93,7 +93,7 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
   AuthLazyRoute.addChildren([AuthLoginLazyRoute, AuthRegisterLazyRoute]),
-  PublicLazyRoute.addChildren([PublicMapLazyRoute]),
+  PublicLazyRoute.addChildren([PublicMapRoute]),
 ])
 
 /* prettier-ignore-end */
