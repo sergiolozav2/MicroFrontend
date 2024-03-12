@@ -35,7 +35,7 @@ export function RegisterPage() {
               ¿Tienes una cuenta?
             </p>
             <Link
-              to="/auth/login"
+              to="/login"
               className="border-danger text-danger hover:border-danger-600 hover:text-danger-600 focus:border-danger-600 focus:text-danger-600 active:border-danger-700 active:text-danger-700 inline-block rounded border-2 border-[#d8363a] px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-[#d8363a] transition duration-150 ease-in-out hover:bg-neutral-500 hover:bg-opacity-10 focus:outline-none focus:ring-0"
             >
               Inicia sesión
