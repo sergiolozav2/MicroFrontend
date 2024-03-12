@@ -7,7 +7,7 @@ export function LinkOption(props: LinkOptionProps) {
   return (
     <Link
       to={props.to}
-      className="block text-gray-900 hover:text-blue-700 [&.active]:text-blue-700"
+      className="block text-gray-900 hover:text-orange-600 [&.active]:text-orange-600"
     >
       {props.text}
     </Link>
