@@ -1,21 +1,28 @@
+import { useNavigate } from "@tanstack/react-router";
 import { ButtonHTMLAttributes, ReactNode } from "react";
 import { IconContext } from "react-icons";
 
 interface RoutesBarOptionProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
   selected: boolean;
+  tab: number;
   children: ReactNode;
 }
 
 export function RoutesBarOption(props: RoutesBarOptionProps) {
+  const navigate = useNavigate();
+  function handleChangeTab() {
+    navigate({ search: (prev) => ({ ...prev, tab: props.tab }) });
+  }
   return (
     <button
-      className={`${props.selected ? "text-orange-500" : "text-stone-600"} flex w-full flex-col items-center pt-2 text-xs font-medium`}
+      className={`${props.selected ? "text-orange-500" : "text-stone-600"} flex w-full flex-col items-center pt-2 text-sm font-medium md:text-xs`}
+      onClick={handleChangeTab}
       {...props}
     >
       <IconContext.Provider
         value={{
-          className: `${props.selected ? "text-orange-500" : "text-stone-600"}`,
+          className: `${props.selected ? "text-orange-500" : "text-stone-600"} text-xl md:text-lg`,
         }}
       >
         {props.children}
