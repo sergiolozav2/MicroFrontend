@@ -4,6 +4,7 @@ export function RoutesMapPage() {
   return (
     <div className="">
       <NavbarPublic />
+      
     </div>
   );
 }
