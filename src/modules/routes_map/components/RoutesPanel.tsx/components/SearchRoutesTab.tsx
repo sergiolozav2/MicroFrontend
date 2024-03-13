@@ -1,25 +1,14 @@
 import { FcHome, FcSearch } from "react-icons/fc";
 import { RouteSuggestionItem } from "../../RouteSuggestionItem/RouteSuggestionItem";
+import { SearchAddressInput } from "./SearchAddressInput";
 
 export function SearchRoutesTab() {
   const columnClassName = "flex flex-col gap-3 px-5";
   return (
     <div className="flex flex-col py-6">
       <div className={columnClassName}>
-        <div className="flex items-center rounded-md border border-stone-200/80 bg-stone-100 px-2">
-          <FcSearch />
-          <input
-            className="bg-inherit py-1.5 pl-2 text-sm outline-none"
-            placeholder="Punto de inicio"
-          />
-        </div>
-        <div className="flex items-center rounded-md border border-stone-200/80 bg-stone-100 px-2">
-          <FcHome />
-          <input
-            className="bg-inherit py-1.5 pl-2 text-sm outline-none"
-            placeholder="Destino"
-          />
-        </div>
+        <SearchAddressInput icon={<FcSearch />} placeholder="Punto de inicio" />
+        <SearchAddressInput icon={<FcHome />} placeholder="Destino" />
       </div>
       <div className="mt-4 h-[1px] w-full bg-stone-300"></div>
       <div className={columnClassName}>
