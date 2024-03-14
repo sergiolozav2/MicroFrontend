@@ -16,13 +16,13 @@ export function RoutesBarOption(props: RoutesBarOptionProps) {
   }
   return (
     <button
-      className={`${props.selected ? "text-orange-500" : "text-stone-500/85"} flex w-full flex-col items-center pt-2 text-sm font-medium md:text-xs`}
+      className={`${props.selected ? "text-primary-500" : "text-stone-500/85"} flex w-full flex-col items-center pt-2 text-sm font-medium md:text-xs`}
       onClick={handleChangeTab}
       {...props}
     >
       <IconContext.Provider
         value={{
-          className: `${props.selected ? "text-orange-500" : "text-stone-500/85"} text-xl md:text-lg`,
+          className: `${props.selected ? "text-primary-500" : "text-stone-500/85"} text-xl md:text-lg`,
         }}
       >
         {props.children}
