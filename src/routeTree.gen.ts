@@ -14,6 +14,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as AdminRouteImport } from './routes/admin/route'
+import { Route as AdminIndexImport } from './routes/admin/index'
 import { Route as AdminVehiclesImport } from './routes/admin/vehicles'
 import { Route as AdminTeamImport } from './routes/admin/team'
 import { Route as AdminRoutesImport } from './routes/admin/routes'
@@ -50,6 +51,11 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const AdminIndexRoute = AdminIndexImport.update({
+  path: '/',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 
 const AuthRegisterLazyRoute = AuthRegisterLazyImport.update({
   path: '/register',
@@ -145,6 +151,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRegisterLazyImport
       parentRoute: typeof AuthLazyImport
     }
+    '/admin/': {
+      preLoaderRoute: typeof AdminIndexImport
+      parentRoute: typeof AdminRouteImport
+    }
   }
 }
 
@@ -158,6 +168,7 @@ export const routeTree = rootRoute.addChildren([
     AdminRoutesRoute,
     AdminTeamRoute,
     AdminVehiclesRoute,
+    AdminIndexRoute,
   ]),
   AuthLazyRoute.addChildren([AuthLoginLazyRoute, AuthRegisterLazyRoute]),
   PublicLazyRoute.addChildren([PublicMapRoute]),
