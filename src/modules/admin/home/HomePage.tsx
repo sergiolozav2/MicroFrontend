@@ -1,3 +1,11 @@
+import { TitleSection } from "../components/TitleSection";
+
 export function HomePage() {
-  return <div> Bienvenido a home </div>;
+  return (
+    <div>
+      <TitleSection>
+        <h2> Home </h2>
+      </TitleSection>
+    </div>
+  );
 }

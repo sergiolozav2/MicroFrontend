@@ -1,3 +1,11 @@
+import { TitleSection } from "../components/TitleSection";
+
 export function VehiclesPage() {
-  return <div> Editar micros </div>;
+  return (
+    <div>
+      <TitleSection>
+        <h2> Vehículos </h2>
+      </TitleSection>
+    </div>
+  );
 }
