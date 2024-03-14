@@ -8,12 +8,17 @@ import {
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { LuTruck } from "react-icons/lu";
 import { SidebarLink } from "./components/SidebarLink";
+import { AiOutlineSetting } from "react-icons/ai";
+import { SidebarTitle } from "./components/SidebarTitle";
 
 export function SidebarAdmin() {
   return (
-    <div className="fixed inset-0 right-auto flex min-h-screen w-admin-navbar flex-col">
+    <div className="from-primary-50 to-primary-200 fixed inset-0 right-auto flex min-h-screen w-admin-navbar flex-col bg-gradient-to-b from-40%">
       <div className="hidden border-r border-stone-300 px-4 py-3 md:block">
-        <img className="mt-4 mx-auto max-w-12" src="/images/logo/logo-135.png" />
+        <img
+          className="mx-auto mt-4 max-w-12"
+          src="/images/logo/logo-135.png"
+        />
       </div>
       <div className="flex h-9 items-end p-1 md:hidden">
         <button className="px-1 py-0.5 text-xl hover:bg-stone-900/10 ">
@@ -21,7 +26,8 @@ export function SidebarAdmin() {
         </button>
       </div>
       <div className="h-full origin-left scale-x-0 border-r border-stone-300 shadow-md transition-transform md:scale-x-100">
-        <div className="mt-6 flex flex-col gap-1 px-2 py-1 font-medium">
+        <div className="flex flex-col gap-1 px-2 py-1 font-medium">
+          <SidebarTitle text="Aplicaciones" />
           <SidebarLink
             text="Inicio"
             to="/admin/"
@@ -57,6 +63,13 @@ export function SidebarAdmin() {
             to="/admin/metrics"
             onClick={() => 0}
             icon={<MdOutlineAnalytics />}
+          />
+          <SidebarTitle text="General" />
+          <SidebarLink
+            text="Configuración"
+            to="/admin/metrics"
+            onClick={() => 0}
+            icon={<AiOutlineSetting />}
           />
         </div>
       </div>
