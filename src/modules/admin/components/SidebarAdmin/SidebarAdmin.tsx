@@ -13,19 +13,17 @@ import { SidebarTitle } from "./components/SidebarTitle";
 
 export function SidebarAdmin() {
   return (
-    <div className="from-primary-50 to-primary-200 fixed inset-0 right-auto flex min-h-screen w-admin-navbar flex-col bg-gradient-to-b from-40%">
-      <div className="hidden border-r border-stone-300 px-4 py-3 md:block">
-        <img
-          className="mx-auto mt-4 max-w-12"
-          src="/images/logo/logo-135.png"
-        />
+    <div className="fixed inset-0 right-auto flex min-h-screen w-admin-navbar flex-col">
+      <div className="bg-primary-50 mt-2 hidden items-center border-r border-stone-300 px-4 py-3 md:flex">
+        <img className="mr-2 max-w-10" src="/images/logo/logo-135.png" />
+        <p className="font-medium text-stone-700">Micro</p>
       </div>
       <div className="flex h-9 items-end p-1 md:hidden">
         <button className="px-1 py-0.5 text-xl hover:bg-stone-900/10 ">
           <MdMenu />
         </button>
       </div>
-      <div className="h-full origin-left scale-x-0 border-r border-stone-300 shadow-md transition-transform md:scale-x-100">
+      <div className="from-primary-50 to-primary-300 h-full origin-left scale-x-0 border-r border-stone-300 bg-gradient-to-b from-40% pt-4 shadow-md transition-transform md:scale-x-100">
         <div className="flex flex-col gap-1 px-2 py-1 font-medium">
           <SidebarTitle text="Aplicaciones" />
           <SidebarLink
