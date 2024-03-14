@@ -1,10 +1,14 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { AuthInput } from "./components/AuthInput";
 import { GradientContainer } from "./components/GradientContainer";
 import { GradientButton } from "./components/GradientButton";
 import { AuthContainer } from "./components/AuthContainer";
 
 export function LoginPage() {
+  const navigate = useNavigate();
+  function handleLogin() {
+    navigate({ to: "/admin/vehicles" });
+  }
   return (
     <div className="min-h-screen bg-stone-100 lg:flex lg:flex-wrap">
       <AuthContainer>
@@ -27,7 +31,9 @@ export function LoginPage() {
           </div>
 
           <div className="mb-12 pb-1 pt-1 text-center">
-            <GradientButton type="button">Iniciar sesión</GradientButton>
+            <GradientButton onClick={handleLogin} type="button">
+              Iniciar sesión
+            </GradientButton>
             <a href="#!" className="text-sm">
               ¿Contraseña olvidada?
             </a>
