@@ -13,6 +13,8 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as AdminRouteImport } from './routes/admin/route'
+import { Route as AdminVehiclesImport } from './routes/admin/vehicles'
 import { Route as PublicMapImport } from './routes/_public.map'
 
 // Create Virtual Routes
@@ -35,6 +37,11 @@ const AuthLazyRoute = AuthLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/_auth.lazy').then((d) => d.Route))
 
+const AdminRouteRoute = AdminRouteImport.update({
+  path: '/admin',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
@@ -52,6 +59,11 @@ const AuthLoginLazyRoute = AuthLoginLazyImport.update({
   getParentRoute: () => AuthLazyRoute,
 } as any).lazy(() => import('./routes/_auth.login.lazy').then((d) => d.Route))
 
+const AdminVehiclesRoute = AdminVehiclesImport.update({
+  path: '/vehicles',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+
 const PublicMapRoute = PublicMapImport.update({
   path: '/map',
   getParentRoute: () => PublicLazyRoute,
@@ -65,6 +77,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/admin': {
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRoute
+    }
     '/_auth': {
       preLoaderRoute: typeof AuthLazyImport
       parentRoute: typeof rootRoute
@@ -76,6 +92,10 @@ declare module '@tanstack/react-router' {
     '/_public/map': {
       preLoaderRoute: typeof PublicMapImport
       parentRoute: typeof PublicLazyImport
+    }
+    '/admin/vehicles': {
+      preLoaderRoute: typeof AdminVehiclesImport
+      parentRoute: typeof AdminRouteImport
     }
     '/_auth/login': {
       preLoaderRoute: typeof AuthLoginLazyImport
@@ -92,6 +112,7 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
+  AdminRouteRoute.addChildren([AdminVehiclesRoute]),
   AuthLazyRoute.addChildren([AuthLoginLazyRoute, AuthRegisterLazyRoute]),
   PublicLazyRoute.addChildren([PublicMapRoute]),
 ])
