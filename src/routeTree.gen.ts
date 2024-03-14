@@ -15,6 +15,10 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as AdminRouteImport } from './routes/admin/route'
 import { Route as AdminVehiclesImport } from './routes/admin/vehicles'
+import { Route as AdminTeamImport } from './routes/admin/team'
+import { Route as AdminRoutesImport } from './routes/admin/routes'
+import { Route as AdminMetricsImport } from './routes/admin/metrics'
+import { Route as AdminEventsImport } from './routes/admin/events'
 import { Route as PublicMapImport } from './routes/_public.map'
 
 // Create Virtual Routes
@@ -64,6 +68,26 @@ const AdminVehiclesRoute = AdminVehiclesImport.update({
   getParentRoute: () => AdminRouteRoute,
 } as any)
 
+const AdminTeamRoute = AdminTeamImport.update({
+  path: '/team',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+
+const AdminRoutesRoute = AdminRoutesImport.update({
+  path: '/routes',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+
+const AdminMetricsRoute = AdminMetricsImport.update({
+  path: '/metrics',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+
+const AdminEventsRoute = AdminEventsImport.update({
+  path: '/events',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
+
 const PublicMapRoute = PublicMapImport.update({
   path: '/map',
   getParentRoute: () => PublicLazyRoute,
@@ -93,6 +117,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicMapImport
       parentRoute: typeof PublicLazyImport
     }
+    '/admin/events': {
+      preLoaderRoute: typeof AdminEventsImport
+      parentRoute: typeof AdminRouteImport
+    }
+    '/admin/metrics': {
+      preLoaderRoute: typeof AdminMetricsImport
+      parentRoute: typeof AdminRouteImport
+    }
+    '/admin/routes': {
+      preLoaderRoute: typeof AdminRoutesImport
+      parentRoute: typeof AdminRouteImport
+    }
+    '/admin/team': {
+      preLoaderRoute: typeof AdminTeamImport
+      parentRoute: typeof AdminRouteImport
+    }
     '/admin/vehicles': {
       preLoaderRoute: typeof AdminVehiclesImport
       parentRoute: typeof AdminRouteImport
@@ -112,7 +152,13 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
-  AdminRouteRoute.addChildren([AdminVehiclesRoute]),
+  AdminRouteRoute.addChildren([
+    AdminEventsRoute,
+    AdminMetricsRoute,
+    AdminRoutesRoute,
+    AdminTeamRoute,
+    AdminVehiclesRoute,
+  ]),
   AuthLazyRoute.addChildren([AuthLoginLazyRoute, AuthRegisterLazyRoute]),
   PublicLazyRoute.addChildren([PublicMapRoute]),
 ])
