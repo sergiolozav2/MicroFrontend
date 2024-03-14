@@ -9,7 +9,7 @@ interface SidebarOptionButton extends LinkProps {
 export function SidebarLink(props: SidebarOptionButton) {
   return (
     <Link
-      className="rounded-md py-2 pl-3 pr-4 text-left text-stone-600 hover:bg-stone-900/5 [&.active]:text-orange-600"
+      className="[&.active]:bg-primary-100 [&.active]:text-primary-600 rounded-md py-2 pl-3 pr-4 text-left text-stone-600 hover:bg-stone-900/5"
       to={props.to}
       onClick={props.onClick}
     >
