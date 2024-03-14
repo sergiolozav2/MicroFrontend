@@ -16,3 +16,7 @@ body {
     Oxygen,
     Ubuntu;
 }
+
+:root {
+  --admin-navbar-width: 12rem;
+}
