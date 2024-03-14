@@ -14,9 +14,9 @@ import { SidebarTitle } from "./components/SidebarTitle";
 export function SidebarAdmin() {
   return (
     <div className="fixed inset-0 right-auto flex min-h-screen w-admin-navbar flex-col">
-      <div className="bg-primary-50 mt-2 hidden items-center border-r border-stone-300 px-4 py-3 md:flex">
-        <img className="mr-2 max-w-10" src="/images/logo/logo-135.png" />
-        <p className="font-medium text-stone-700">Micro</p>
+      <div className="hidden items-center border-r border-stone-300 px-4 py-3 md:flex">
+        <img className="mr-2 max-w-6" src="/logo-bus.svg" />
+        <p className="text-primary-950 font-semibold">Micro</p>
       </div>
       <div className="flex h-9 items-end p-1 md:hidden">
         <button className="px-1 py-0.5 text-xl hover:bg-stone-900/10 ">
