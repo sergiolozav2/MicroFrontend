@@ -73,6 +73,9 @@ export class ConductorService {
             vehiculoID: number;
             vehiculo: {
                 creadoEn: string;
+                lineaTransporte: {
+                    numeroLinea: string;
+                };
                 lineaTransporteID: number;
                 vehiculoID: number;
                 matricula: string;

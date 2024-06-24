@@ -8,7 +8,7 @@ type RequiredLoginWrapperProps = {
 export function RequiredLoginWrapper(props: RequiredLoginWrapperProps) {
   const isLogged = useAuthStore((state) => state.isLoggedIn);
 
-  if (!isLogged) {
+  if (isLogged) {
     return props.children;
   }
 

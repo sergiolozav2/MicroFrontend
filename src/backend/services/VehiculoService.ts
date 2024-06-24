@@ -41,11 +41,56 @@ export class VehiculoService {
             creadoEn: string;
             propietarioNombre: string;
             lineaTransporteID: number;
+            lineaTransporte: {
+                numeroLinea: string;
+            };
         }>;
     }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/vehiculo/',
+        });
+    }
+    /**
+     * @param body
+     * @returns any Default Response
+     * @throws ApiError
+     */
+    public static putVehiculoActualizarViaje(
+        body?: {
+            vehiculoID: number;
+            latitud: number;
+            longitud: number;
+        },
+    ): CancelablePromise<{
+        success: boolean;
+    }> {
+        return __request(OpenAPI, {
+            method: 'PUT',
+            url: '/vehiculo/actualizar-viaje',
+            body: body,
+        });
+    }
+    /**
+     * @returns any Default Response
+     * @throws ApiError
+     */
+    public static getVehiculoUbicacionReal(): CancelablePromise<{
+        list: Array<{
+            vehiculoID: number;
+            matricula: string;
+            modelo: string;
+            lineaTransporteID: number;
+            lineaTransporte: {
+                numeroLinea: string;
+            };
+            latitud?: number;
+            longitud?: number;
+        }>;
+    }> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/vehiculo/ubicacion-real',
         });
     }
 }

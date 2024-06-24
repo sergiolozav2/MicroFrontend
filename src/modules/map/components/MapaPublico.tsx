@@ -4,12 +4,15 @@ import { FaLocationDot } from "react-icons/fa6";
 import {
   Circle,
   MapContainer,
+  Marker,
   Polyline,
+  Popup,
   TileLayer,
   useMap,
 } from "react-leaflet";
 import { PuntoType } from "../MapPage";
 import { RutaType } from "../hooks/useCalcularRuta";
+import { leafletBusIcon } from "./busLeafletIcon";
 
 interface MapaPublicoProps extends HackProps {
   enableSelectorMode: boolean;
@@ -17,6 +20,19 @@ interface MapaPublicoProps extends HackProps {
   puntoDestino?: PuntoType;
   solucion?: RutaType[];
   rutaSeleccionada?: PuntoType[];
+  vehiculoTiempoReal?:
+    | {
+        vehiculoID: number;
+        matricula: string;
+        modelo: string;
+        lineaTransporte: {
+          numeroLinea: string;
+        };
+        lineaTransporteID: number;
+        latitud?: number | undefined;
+        longitud?: number | undefined;
+      }[]
+    | undefined;
 }
 
 export function MapaPublico(props: MapaPublicoProps) {
@@ -53,6 +69,23 @@ export function MapaPublico(props: MapaPublicoProps) {
             color="green"
           />
         )}
+        {props.vehiculoTiempoReal &&
+          props.vehiculoTiempoReal.map(
+            (vehiculo) =>
+              vehiculo.latitud &&
+              vehiculo.longitud && (
+                <Marker
+                  key={vehiculo.vehiculoID}
+                  position={[vehiculo.latitud, vehiculo.longitud]}
+                  icon={leafletBusIcon}
+                >
+                  <Popup>
+                    Matrícula: {vehiculo.matricula} <br />
+                    Línea: {vehiculo.lineaTransporte.numeroLinea}
+                  </Popup>
+                </Marker>
+              ),
+          )}
         {props.rutaSeleccionada &&
           props.rutaSeleccionada?.length >= 2 &&
           props.rutaSeleccionada.slice(1).map((punto, index) => (

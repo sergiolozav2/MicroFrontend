@@ -18,6 +18,9 @@ import { RutaSolucionList } from "./components/RutaSolucionList";
 import { FaBus } from "react-icons/fa6";
 import { GrShare } from "react-icons/gr";
 import { useNavigate } from "@tanstack/react-router";
+import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { usePollVehiculosActivos } from "./hooks/usePollVehiculosActivos";
 export type PuntoType = {
   latitud: number;
   longitud: number;
@@ -51,7 +54,8 @@ export function MapPage() {
   const [puntoDestino, setPuntoDestino] = useState<PuntoType>();
   const [solucion, setSolucion] = useState<RutaType[]>();
   const [mostrarRuta, setMostrarRuta] = useState(false);
-  const [ruta, setRuta] = useState<PuntoType[]>();
+  const { data: dataVehiculosReal } = usePollVehiculosActivos();
+  const [ruta, _] = useState<PuntoType[]>();
 
   const [tab, setTab] = useState(TabsEnum.mapa);
 
@@ -61,7 +65,7 @@ export function MapPage() {
   function startLocationSelector(mode: SelectorModeTypes) {
     setEnableSelectorMode(mode);
   }
-
+  console.log(dataVehiculosReal)
   function goToLogin() {
     navigate({ to: "/login" });
   }
@@ -238,6 +242,7 @@ export function MapPage() {
         <MapaPublico
           enableSelectorMode={!!enableSelectorMode}
           mapRef={mapRef}
+          vehiculoTiempoReal={dataVehiculosReal?.list}
           puntoInicio={puntoInicio}
           puntoDestino={puntoDestino}
           solucion={solucion}
@@ -252,35 +257,64 @@ export function MapPage() {
             {data?.list &&
               data?.list.map((linea, index) => (
                 <React.Fragment key={linea.lineaTransporteID}>
-                  <button
-                    className="flex items-center px-2 py-3.5 text-sm"
-                    onClick={() => {
-                      setTab(TabsEnum.mapa);
-                      setRuta(linea.rutaIda.puntos);
-                    }}
-                  >
-                    <FaBus
-                      className="mr-2"
-                      style={{
-                        color: colorByIndex[index % colorByIndex.length],
-                      }}
-                    />
-                    <p>Linea {linea.numeroLinea}</p>
-                    <div className="ml-auto">
-                      <GrShare />
-                    </div>
-                  </button>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <button
+                        className="flex items-center px-2 py-3.5 text-sm"
+                        onClick={() => {
+                          //setTab(TabsEnum.mapa);
+                          //setRuta(linea.rutaIda.puntos);
+                        }}
+                      >
+                        <FaBus
+                          className="mr-2"
+                          style={{
+                            color: colorByIndex[index % colorByIndex.length],
+                          }}
+                        />
+                        <p>Linea {linea.numeroLinea}</p>
+                        <div className="ml-auto">
+                          <GrShare />
+                        </div>
+                      </button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <p>Dejar calificación de línea de transporte</p>
+                      <textarea className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"></textarea>
+                    </DialogContent>
+                  </Dialog>
                   <Separator />
                 </React.Fragment>
               ))}
           </div>
+
+          <p className="mt-6 font-medium">Historial de viajes</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            No tienes ningún viaje
+          </p>
+
+          <p className="mt-6 font-medium">Ubicaciones favoritas</p>
+          <p className="mt-1 text-sm">Hogar</p>
+          <p className="text-xs text-muted-foreground">
+            {" "}
+            -17.4234234, 63.2423423{" "}
+          </p>
         </div>
       )}
       {tab === "opciones" && (
         <div className="flex h-full flex-col px-4 py-4 text-foreground">
           <p className="mb-4 font-medium">Opciones</p>
 
-          <Button onClick={goToLogin}>Iniciar sesión</Button>
+          <p className="mb-1 font-medium">Editar nombre de usuario</p>
+          <Input className="mb-4" type="email" placeholder="Usuario" />
+          <p className="mb-1 font-medium">Editar correo electrónico</p>
+          <Input
+            className="mb-4"
+            type="email"
+            placeholder="Correo electrónico"
+          />
+
+          <Button onClick={goToLogin}>Cerrar sesión</Button>
         </div>
       )}
     </div>

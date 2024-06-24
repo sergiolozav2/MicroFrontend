@@ -57,6 +57,9 @@ export class LineaTransporteService {
                 creadoEn: string;
                 propietarioNombre: string;
                 lineaTransporteID: number;
+                lineaTransporte: {
+                    numeroLinea: string;
+                };
             }>;
             rutaIda: {
                 rutaID: number;
@@ -114,6 +117,9 @@ export class LineaTransporteService {
             creadoEn: string;
             propietarioNombre: string;
             lineaTransporteID: number;
+            lineaTransporte: {
+                numeroLinea: string;
+            };
         }>;
         rutaIda: {
             rutaID: number;

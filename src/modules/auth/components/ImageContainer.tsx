@@ -12,7 +12,7 @@ export function ImageContainer(props: ImageContainerProps) {
     >
       <img
         src="/images/login/city-map.jpg"
-        className="absolute mix-blend-multiply"
+        className="absolute object-cover filter brightness-50 w-full mix-blend-multiply lg:h-full"
       />
       <div className="relative max-w-2xl px-4 py-10 text-primary-foreground dark:text-foreground md:mx-6 md:p-12">
         {props.children}

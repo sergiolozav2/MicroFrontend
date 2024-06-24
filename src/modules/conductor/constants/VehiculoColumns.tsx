@@ -31,6 +31,10 @@ export const vehiculoColumns: ColumnDef<VehiculoType>[] = [
     header: "Modelo",
   },
   {
+    accessorFn: (row) => row.vehiculo.lineaTransporte.numeroLinea,
+    header: "Línea",
+  },
+  {
     accessorFn: (row) => formatToUserDate(row.creadoEn),
     header: "Fecha registro",
     meta: {
@@ -49,14 +53,13 @@ export const vehiculoColumns: ColumnDef<VehiculoType>[] = [
         </DialogTrigger>
         <DialogContent className="sm:max-w-[605px]">
           <DialogHeader>
-            <DialogTitle>
-              Inicio de viaje
-            </DialogTitle>
+            <DialogTitle>Iniciar/detener viaje</DialogTitle>
             <DialogDescription>
-              Inicia para ser compartir tu ubicación en tiempo real
+              Tu ubicación será visible para todos los usuarios de la
+              aplicación.
             </DialogDescription>
           </DialogHeader>
-          <div className="flex items-center justify-center">
+          <div className="flex w-full flex-col items-center justify-center">
             <ViajeInicioPage vehiculo={a.getValue() as VehiculoSiType} />
           </div>
         </DialogContent>

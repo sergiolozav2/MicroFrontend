@@ -2,6 +2,7 @@ import { MdMenu } from "react-icons/md";
 import { useSidebarStore } from "../ApplicationSidebar/hooks/useSidebarStore";
 
 type ModuleTitleProps = {
+  className?: string;
   children: React.ReactNode;
 };
 

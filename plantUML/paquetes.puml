@@ -1,0 +1,67 @@
+@startuml Paquetes
+
+package "Micro" {
+    package "backend" {
+        package "modules" {
+            package "conductor" {
+                component serviceConductor
+                component rutasConductor
+                component repositoryConductor
+            }
+            package "auth" {
+                component serviceAuth
+                component rutasAuth
+                component repositoryAuth
+            }
+            package "administrador" {
+                component serviceAdmin
+                component rutasAdmin
+                component repositoryAdmin
+            }
+            package "vehiculo" {
+                component serviceVehiculo
+                component rutasVehiculo
+                component repositoryVehiculo
+            }
+            package "user" {
+                component serviceUser
+                component rutasUser
+                component repositoryUser
+            }
+            package "linea_transporte" {
+                component serviceLineaTransporte
+                component rutasLineaTransporte
+                component repositoryLineaTransporte
+            }
+        }
+        package "db" {
+            component schema
+            component migrations
+        }
+        package "plugin" {
+            component config
+            component swagger
+            component jwt
+        }
+    }
+
+    package "frontend" {
+        package "modules" as modulesReact {
+            component auth as authReact
+            component conductor as conductorReact
+            component home as homeReact
+            component lineaTransporte as lineaTransporteReact
+            component map as mapReact
+            component vehicles as vehiclesReact
+        }
+        package components {
+        }
+
+        package routes {
+        }
+    }
+
+
+}
+
+@enduml

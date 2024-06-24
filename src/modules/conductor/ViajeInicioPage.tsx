@@ -1,5 +1,6 @@
-import { ConductorService } from "@/backend";
+import { ConductorService, VehiculoService } from "@/backend";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 
 type ViajeInicioPageProps = {
@@ -12,19 +13,28 @@ type VehiculoType = ReturnedBody<
 export function ViajeInicioPage(props: ViajeInicioPageProps) {
   const [access, setAccess] = useState(false);
   async function handleIniciarViaje() {
-    getLocation().then(() => {
-      setAccess(true);
-    });
+    if (!access) {
+      getLocation().then(() => {
+        setAccess(true);
+      });
+      return;
+    }
+
+    setAccess(false);
   }
 
   function onLocationPing(location: GeolocationPosition) {
-    console.log(location);
+    VehiculoService.putVehiculoActualizarViaje({
+      latitud: location.coords.latitude,
+      longitud: location.coords.longitude,
+      vehiculoID: props.vehiculo.vehiculoID,
+    });
   }
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (access) {
       interval = setInterval(() => {
-        console.log(navigator.geolocation.getCurrentPosition(onLocationPing));
+        navigator.geolocation.getCurrentPosition(onLocationPing);
       }, 2000);
       return () => {
         clearInterval(interval);
@@ -32,8 +42,10 @@ export function ViajeInicioPage(props: ViajeInicioPageProps) {
     }
   }, [access]);
   return (
-    <div className="flex flex-col">
-      <Button onClick={handleIniciarViaje}>Iniciar viaje</Button>
+    <div className="flex w-full flex-col">
+      <Button className="w-fit" onClick={handleIniciarViaje}>
+        {access ? "Detener viaje" : "Iniciar viaje"}
+      </Button>
     </div>
   );
 }
