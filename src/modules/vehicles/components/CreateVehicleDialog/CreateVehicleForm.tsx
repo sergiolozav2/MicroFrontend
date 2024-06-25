@@ -1,9 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 type CreateVehicleFormProps = {
   onCreate: () => void;
@@ -12,15 +9,7 @@ type CreateVehicleFormProps = {
   onSuccess: () => void;
 };
 
-const formSchema = z.object({
-  matricula: z.string({ message: "Matrícula inválida." }).min(6, {
-    message: "Matricula debe tener al menos 6 caracteres.",
-  }),
-});
 export function CreateVehicleForm(props: CreateVehicleFormProps) {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-  });
   return (
     <div className="flex w-full flex-col">
       <form className="mt-2 grid grid-cols-2 gap-x-6 gap-y-8">

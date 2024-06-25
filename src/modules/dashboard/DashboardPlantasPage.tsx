@@ -72,7 +72,7 @@ export function DashboardPlantasPage() {
                 <ResponsiveContainer className="w-fit">
                   <PieChart>
                     <Pie dataKey="value" data={donaChart}>
-                      {donaChart.map((entry, index) => (
+                      {donaChart.map((_, index) => (
                         <Cell key={`cell-${index}`} strokeWidth={0} />
                       ))}
                     </Pie>

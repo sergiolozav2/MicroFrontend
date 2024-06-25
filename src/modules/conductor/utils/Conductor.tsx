@@ -10,5 +10,8 @@ class Conductor {
 }
 
 class Vehiculo {
-  constructor(idConductor: number) {}
+  constructor(idConductor: number) {
+    console.log(idConductor)
+    console.log("Clase de vehículo inicializada")
+  }
 }
