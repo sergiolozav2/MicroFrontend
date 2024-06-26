@@ -19,8 +19,6 @@ import { Route as AdminViajesImport } from './routes/admin/viajes'
 import { Route as AdminMetricsImport } from './routes/admin/metrics'
 import { Route as AdminHomeImport } from './routes/admin/home'
 import { Route as AdminEventsImport } from './routes/admin/events'
-import { Route as AdminDashboardPlantasImport } from './routes/admin/dashboard-plantas'
-import { Route as AdminDashboardEmpresaImport } from './routes/admin/dashboard-empresa'
 import { Route as AdminVehiclesIndexImport } from './routes/admin/vehicles/index'
 import { Route as AdminLineaIndexImport } from './routes/admin/linea/index'
 import { Route as AdminConductorIndexImport } from './routes/admin/conductor/index'
@@ -102,16 +100,6 @@ const AdminEventsRoute = AdminEventsImport.update({
   getParentRoute: () => AdminRouteRoute,
 } as any)
 
-const AdminDashboardPlantasRoute = AdminDashboardPlantasImport.update({
-  path: '/dashboard-plantas',
-  getParentRoute: () => AdminRouteRoute,
-} as any)
-
-const AdminDashboardEmpresaRoute = AdminDashboardEmpresaImport.update({
-  path: '/dashboard-empresa',
-  getParentRoute: () => AdminRouteRoute,
-} as any)
-
 const AdminVehiclesIndexRoute = AdminVehiclesIndexImport.update({
   path: '/vehicles/',
   getParentRoute: () => AdminRouteRoute,
@@ -167,14 +155,6 @@ declare module '@tanstack/react-router' {
     '/_public': {
       preLoaderRoute: typeof PublicLazyImport
       parentRoute: typeof rootRoute
-    }
-    '/admin/dashboard-empresa': {
-      preLoaderRoute: typeof AdminDashboardEmpresaImport
-      parentRoute: typeof AdminRouteImport
-    }
-    '/admin/dashboard-plantas': {
-      preLoaderRoute: typeof AdminDashboardPlantasImport
-      parentRoute: typeof AdminRouteImport
     }
     '/admin/events': {
       preLoaderRoute: typeof AdminEventsImport
@@ -244,8 +224,6 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
   AdminRouteRoute.addChildren([
-    AdminDashboardEmpresaRoute,
-    AdminDashboardPlantasRoute,
     AdminEventsRoute,
     AdminHomeRoute,
     AdminMetricsRoute,
