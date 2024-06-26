@@ -1,6 +1,16 @@
-# Mibo - Frontend
+# Micro - Frontend
 
 Webapp de transporte creado con React y Typescript
+
+## Como utilizar demo
+
+[Enlace de demostración App:](https://reactmicro.netlify.app/login)
+[Enlace de mapa:](https://reactmicro.netlify.app/map)
+[Enlace de documentación Swagger:](https://micro.fly.dev/docs)
+
+Cuenta con todos los permisos
+- Email: nancy@gmail.com
+- Contraseña: Passw0rd
 
 ## Herramientas principales
 
